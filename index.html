@@ -1,326 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Video Player Final</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Curhatan Thelar</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow-x: hidden; /* cegah scroll kanan */
-      background-color: #1e1e1e;
-      font-family: Arial, sans-serif;
-      color: white;
-      touch-action: manipulation;
-    }
-
-    body {
-      max-width: 100vw;
-      overflow: hidden;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      width: 100vw;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 600;
+      background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      backdrop-filter: brightness(0.9);
     }
 
     h1 {
-      margin-bottom: 20px;
       text-align: center;
+      color: #ffe4e1;
+      font-size: 2.8em;
+      margin-top: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
-    .video-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 600px;
-      padding: 0 10px;
-    }
-
-    .video-button {
-      display: flex;
-      align-items: center;
-      background-color: #2b2b2b;
-      border-radius: 10px;
-      padding: 10px;
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 28px;
+      font-size: 18px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transition: background 0.3s ease;
     }
 
-    .video-button:hover {
-      background-color: #444;
+    button:hover {
+      background-color: #ad1457;
     }
 
-    .video-button img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-right: 15px;
+    #container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      font-size: 20px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+      overflow-y: auto;
+      height: calc(100vh - 200px);
     }
 
-    .video-button span {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .video-player {
+    audio {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 720px;
-      text-align: center;
     }
 
-    .video-player video {
-      width: 100%;
-      border-radius: 12px;
-      background: black;
-    }
-
-    .video-description {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ccc;
-      padding: 0 10px;
-    }
-
-    .progress-container {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      margin-top: 20px;
-    }
-
-    svg {
-      transform: rotate(-90deg);
-    }
-
-    .progress-bg, .progress-bar {
-      fill: none;
-      stroke-width: 8;
-      r: 45;
-      cx: 50;
-      cy: 50;
-    }
-
-    .progress-bg {
-      stroke: #444;
-    }
-
-    .progress-bar {
-      stroke: #00aaff;
-      stroke-dasharray: 282.6;
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset 1s linear;
-    }
-
-    .timer-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 16px;
-      color: #00aaff;
-      font-weight: bold;
-    }
-
-    .back-button {
-      margin-top: 20px;
-      background-color: #444;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .back-button:hover {
-      background-color: #666;
-    }
-
-    @media (max-width: 400px) {
-      .video-button span {
-        font-size: 14px;
-      }
-
-      .video-button img {
-        width: 60px;
-        height: 60px;
-      }
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      #container { font-size: 17px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- List View -->
-    <div id="listView">
-      <h1>OLAH RAGA ONLY SASKIA</h1>
-      <div class="video-list">
-        <div class="video-button" onclick="showVideo('video1.mp4', 'Melatih otot paha dan membantu pembakaran lemak.')">
-          <img src="image/image1.png" alt="Video 1">
-          <span>Gerakan Paha & Bokong</span>
-        </div>
-        <div class="video-button" onclick="showVideo('video2.mp4', 'Meningkatkan fleksibilitas dan sirkulasi darah.')">
-          <img src="image/image2.png" alt="Video 2">
-          <span>Gerakan Dada & Cengkraman</span>
-        </div>
-        <div class="video-button" onclick="showVideo('video3.mp4', 'Menguatkan otot kaki bagian bawah.')">
-          <img src="image/image3.png" alt="Video 3">
-          <span>Gerakan Dorong & Masuk</span>
-        </div>
-        <div class="video-button" onclick="showVideo('video4.mp4', 'Membantu metabolisme dan daya tahan.')">
-          <img src="image/image4.png" alt="Video 4">
-          <span>Gerakan Kaki Ayun & Paha</span>
-        </div>
-        <div class="video-button" onclick="showVideo('video5.mp4', 'Melatih koordinasi dan keseimbangan tubuh.')">
-          <img src="image/image5.png" alt="Video 5">
-          <span>Gerakan Hentakan Bokong </span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Player View -->
-    <div id="playerView" class="video-player">
-      <video id="videoPlayer" controls>
-        <source src="" type="video/mp4" />
-        Browser kamu tidak mendukung video.
-      </video>
+  <h1>Curhatan Untuk Saskia</h1>
+  <button onclick="mulaiCurhat()">💔 Baca Curhatannya</button>
 
-      <div id="description" class="video-description"></div>
-
-      <div class="progress-container">
-        <svg width="100" height="100">
-          <circle class="progress-bg" r="45" cx="50" cy="50" />
-          <circle class="progress-bar" r="45" cx="50" cy="50" />
-        </svg>
-        <div id="timerText" class="timer-text">3:00</div>
-      </div>
-
-      <button id="startStopBtn" class="back-button" onclick="toggleTimer()">Mulai</button>
-      <button class="back-button" onclick="goBack()">⬅ Kembali ke daftar</button>
-    </div>
+  <div id="container">
+    <div id="puisi"></div>
   </div>
-<script>
-  // Mencegah pinch zoom dan double tap zoom di mobile
-  document.addEventListener('touchstart', function (e) {
-    if (e.touches.length > 1) {
-      e.preventDefault();
-    }
-  }, { passive: false });
 
-  let lastTouchEnd = 0;
-  document.addEventListener('touchend', function (e) {
-    const now = new Date().getTime();
-    if (now - lastTouchEnd <= 300) {
-      e.preventDefault();
-    }
-    lastTouchEnd = now;
-  }, false);
+  <audio id="musik" autoplay loop>
+    <source src="puisi.mp3" type="audio/mpeg" />
+    Browser kamu tidak mendukung audio.
+  </audio>
 
-  // Cegah zoom pakai Ctrl+Scroll di desktop
-  document.addEventListener('wheel', function (e) {
-    if (e.ctrlKey) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  // Cegah zoom pakai shortcut keyboard
-  document.addEventListener('keydown', function (e) {
-    if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=')) {
-      e.preventDefault();
-    }
-  });
-</script>
   <script>
-    let timer;
-    let isRunning = false;
-    let duration = 180;
-    let currentTime = duration;
+    const teks = `
+Saskia...
 
-    const progressCircle = document.querySelector(".progress-bar");
-    const timerText = document.getElementById("timerText");
-    const startStopBtn = document.getElementById("startStopBtn");
-    const circleLength = 2 * Math.PI * 45;
+Aku cuma ingin jujur malam ini. Nggak pake indah-indah kata. Cuma curhatan dari hati seorang Thelar... yang selama ini diam.
 
-    function updateDisplay() {
-      const min = Math.floor(currentTime / 60);
-      const sec = currentTime % 60;
-      timerText.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
-      const offset = circleLength * (1 - currentTime / duration);
-      progressCircle.style.strokeDashoffset = offset;
+Inget nggak pertama kali kita kenal? Dari aplikasi kecil itu, LICMATCH. Iseng awalnya, tapi pas lihat senyummu... entah kenapa dunia berhenti sebentar.  
+Sejak saat itu, semuanya berubah buatku.
+
+Mungkin kamu nggak sadar, tapi sejak hari itu... kamu udah punya ruang di pikiranku yang nggak bisa aku buang.
+
+Hari-hari berlalu, kita saling sapa, saling cerita. Tapi di balik layar, aku mulai punya tujuan...
+
+Aku pengen ketemu kamu. Bukan cuma di chat. Bukan cuma di foto.
+
+Tapi buat ketemu kamu... aku harus kerja lebih keras. Aku harus bangkit dari capek yang nggak semua orang tahu.  
+Panas yang bikin kulit terbakar, hujan yang bikin baju basah — semua itu aku hadapin dengan satu harapan: bisa lihat kamu senyum di depan mataku.
+
+Aku bukan cowok hebat, bukan orang kaya. Tapi aku berjuang. Setiap tetes keringat itu buat satu hal:  
+Supaya suatu hari... aku bisa datang ke hadapanmu dan bilang:  
+**“Saskia, aku di sini. Aku serius. Aku pengen kamu.”**
+
+Aku capek berpura-pura kuat kadang. Tapi aku bertahan. Karena kamu.  
+Aku tahu mungkin kamu punya banyak pilihan. Tapi aku cuma mau kamu tahu...
+
+**Aku nggak datang dengan janji-janji. Aku datang dengan bukti: perjuangan.**
+
+Kalau kamu baca ini sampai habis, dan kamu nangis...  
+Aku cuma mau bilang satu hal:
+
+Bukan air mata itu yang aku kejar. Tapi **izin dari hatimu... untuk aku jaga selamanya.**
+
+- Thelar
+`;
+
+    let i = 0;
+    let speed = 70;
+
+    function mulaiCurhat() {
+      document.getElementById("puisi").innerHTML = "";
+      i = 0;
+      ketikHuruf();
+      document.getElementById("musik").play().catch(() => {});
     }
 
-    function toggleTimer() {
-      if (!isRunning) {
-        isRunning = true;
-        startStopBtn.textContent = "Stop";
-        timer = setInterval(() => {
-          if (currentTime > 0) {
-            currentTime--;
-            updateDisplay();
-          } else {
-            clearInterval(timer);
-            isRunning = false;
-            startStopBtn.textContent = "Mulai";
-          }
-        }, 1000);
-      } else {
-        isRunning = false;
-        clearInterval(timer);
-        startStopBtn.textContent = "Mulai";
+    function ketikHuruf() {
+      if (i < teks.length) {
+        const puisiDiv = document.getElementById("puisi");
+        puisiDiv.innerHTML += teks.charAt(i);
+        i++;
+
+        // Scroll otomatis
+        const container = document.getElementById("container");
+        container.scrollTop = container.scrollHeight;
+
+        setTimeout(ketikHuruf, teks.charAt(i) === '\n' ? 350 : speed);
       }
     }
-
-    function showVideo(path, descriptionText) {
-      document.getElementById("listView").style.display = "none";
-      const playerView = document.getElementById("playerView");
-      const video = document.getElementById("videoPlayer");
-      const desc = document.getElementById("description");
-
-      video.src = path;
-      video.load();
-      video.play();
-
-      desc.textContent = descriptionText;
-      playerView.style.display = "flex";
-
-      // Reset timer
-      clearInterval(timer);
-      isRunning = false;
-      currentTime = duration;
-      startStopBtn.textContent = "Mulai";
-      updateDisplay();
-    }
-
-    function goBack() {
-      const video = document.getElementById("videoPlayer");
-      video.pause();
-      video.currentTime = 0;
-      document.getElementById("playerView").style.display = "none";
-      document.getElementById("listView").style.display = "block";
-    }
-
-    // Init timer stroke setup
-    progressCircle.style.strokeDasharray = circleLength;
-    updateDisplay();
   </script>
+
 </body>
 </html>
