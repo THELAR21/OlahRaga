@@ -2,143 +2,209 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Curhatan Thelar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Untuk Saskia</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: 'Segoe UI', sans-serif;
       font-weight: 600;
-      background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      backdrop-filter: brightness(0.9);
+      overflow: hidden;
+      background-color: #000;
     }
 
-    h1 {
-      text-align: center;
-      color: #ffe4e1;
-      font-size: 2.8em;
-      margin-top: 30px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    button {
-      display: block;
-      margin: 20px auto;
-      padding: 12px 28px;
-      font-size: 18px;
+    .half {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url('done.jpg'); /* satu foto aja bro */
+      background-size: 200% 100%;
+      transition: all 1.2s ease-in-out;
+      z-index: 2;
+    }
+
+    .left {
+      left: 0;
+      background-position: left center;
+    }
+
+    .right {
+      right: 0;
+      background-position: right center;
+    }
+
+    .open .left {
+      transform: translateX(-100%);
+    }
+
+    .open .right {
+      transform: translateX(100%);
+    }
+
+    .start-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 14px 32px;
+      font-size: 20px;
       background-color: #e91e63;
       color: white;
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 3;
       transition: background 0.3s ease;
     }
 
-    button:hover {
+    .start-btn:hover {
       background-color: #ad1457;
     }
 
-    #container {
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      padding: 40px 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      color: #fff;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0.85));
+      overflow-y: auto;
+    }
+
+    #teks {
+      width: 100%;
       max-width: 800px;
-      margin: auto;
-      padding: 20px;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.8;
       white-space: pre-wrap;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-      overflow-y: auto;
-      height: calc(100vh - 200px);
+      word-wrap: break-word;
+    }
+
+    @media (max-width: 600px) {
+      #teks {
+        font-size: 16px;
+        padding: 0 10px;
+      }
+
+      .start-btn {
+        font-size: 16px;
+        padding: 12px 24px;
+      }
     }
 
     audio {
       display: none;
     }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      #container { font-size: 17px; }
-    }
   </style>
 </head>
 <body>
 
-  <h1>Curhatan Untuk Saskia</h1>
-  <button onclick="mulaiCurhat()">💔 Baca Curhatannya</button>
+<div class="container" id="scene">
+  <div class="half left"></div>
+  <div class="half right"></div>
+  <button class="start-btn" onclick="mulai()">💗 Buka Curhatan</button>
 
-  <div id="container">
-    <div id="puisi"></div>
+  <div class="content" id="konten">
+    <div id="teks"></div>
   </div>
 
   <audio id="musik" autoplay loop>
     <source src="puisi.mp3" type="audio/mpeg" />
-    Browser kamu tidak mendukung audio.
   </audio>
+</div>
 
-  <script>
-    const teks = `
+<script>
+const teks = `
 Saskia...
 
-Aku cuma ingin jujur malam ini. Nggak pake indah-indah kata. Cuma curhatan dari hati seorang Thelar... yang selama ini diam.
+Hari ini aku nggak pengen ngasih kamu puisi indah. Aku cuma pengen cerita… dari hati. Dari seseorang yang jatuh cinta bukan karena alasan, tapi karena perasaan.
 
-Inget nggak pertama kali kita kenal? Dari aplikasi kecil itu, LICMATCH. Iseng awalnya, tapi pas lihat senyummu... entah kenapa dunia berhenti sebentar.  
-Sejak saat itu, semuanya berubah buatku.
+Aku masih inget, pertama kali kita saling sapa di aplikasi kecil itu… LICMATCH. Waktu itu aku nggak nyangka, dari sekadar match bisa berubah jadi rasa yang sedalam ini. Kamu bahkan belum tahu seberapa besar kamu ngubah hidupku sejak hari itu.
 
-Mungkin kamu nggak sadar, tapi sejak hari itu... kamu udah punya ruang di pikiranku yang nggak bisa aku buang.
+Dari awal kita ngobrol, ada hal yang berbeda. Kamu bukan cuma cantik — tapi kamu hangat. Tulus. Dan itu jarang banget aku temuin di dunia ini. Aku mulai nungguin notifikasi dari kamu tiap hari. Tiap malam aku tidur sambil baca ulang chat kita. Aku tahu, kedengerannya lebay... tapi itu kenyataannya.
 
-Hari-hari berlalu, kita saling sapa, saling cerita. Tapi di balik layar, aku mulai punya tujuan...
+Tapi di balik semua tawa kita di chat, aku punya satu rahasia:  
+Aku diam-diam jatuh cinta. Bukan cinta yang instan, tapi cinta yang tumbuh... makin hari makin dalam.
 
-Aku pengen ketemu kamu. Bukan cuma di chat. Bukan cuma di foto.
+Makanya aku mulai kerja lebih keras. Aku berani hujan-hujanan, panas-panasan, cari tambahan dari pagi sampai malam. Orang lihat aku gila kerja, padahal aku cuma punya satu alasan kuat:  
+**Aku pengen cukup... buat bisa nyamperin kamu dan buktiin perasaan ini nyata.**
 
-Tapi buat ketemu kamu... aku harus kerja lebih keras. Aku harus bangkit dari capek yang nggak semua orang tahu.  
-Panas yang bikin kulit terbakar, hujan yang bikin baju basah — semua itu aku hadapin dengan satu harapan: bisa lihat kamu senyum di depan mataku.
+Banyak malam aku pulang capek, badan pegal, tapi senyum kamu di kepala aku cukup buat balikin semangat. Kamu itu alasanku bertahan, Saskia. Kamu itu tujuanku berdiri ketika dunia nyuruh aku rebah.
 
-Aku bukan cowok hebat, bukan orang kaya. Tapi aku berjuang. Setiap tetes keringat itu buat satu hal:  
-Supaya suatu hari... aku bisa datang ke hadapanmu dan bilang:  
-**“Saskia, aku di sini. Aku serius. Aku pengen kamu.”**
+Aku nggak datang bawa mobil mewah. Aku nggak punya gaya keren atau saldo fantastis. Tapi aku punya satu hal yang aku jaga mati-matian: **ketulusan.**
 
-Aku capek berpura-pura kuat kadang. Tapi aku bertahan. Karena kamu.  
-Aku tahu mungkin kamu punya banyak pilihan. Tapi aku cuma mau kamu tahu...
+Aku pernah gagal. Aku pernah ditinggal. Tapi kamu bikin aku percaya lagi.  
+Dan aku cuma minta satu... satu kesempatan buat kamu ngerti:  
+**Bahwa cinta itu bukan tentang seberapa sempurna aku. Tapi tentang seberapa keras aku berjuang buat kamu.**
 
-**Aku nggak datang dengan janji-janji. Aku datang dengan bukti: perjuangan.**
+Kalau kamu lagi baca ini, dan mungkin mulai netes air mata —  
+Aku cuma pengen kamu tahu: itu bukan tujuan aku.  
+Aku nggak pengen bikin kamu sedih...
 
-Kalau kamu baca ini sampai habis, dan kamu nangis...  
-Aku cuma mau bilang satu hal:
+Aku cuma pengen kamu ngerasain... bahwa ada seseorang di luar sana,  
+Yang nggak pernah main-main sejak pertama nyebut namamu dalam doa.
 
-Bukan air mata itu yang aku kejar. Tapi **izin dari hatimu... untuk aku jaga selamanya.**
+Saskia...
 
-- Thelar
+Kalau hatimu masih sendiri, dan kamu juga ngerasa apa yang aku rasa —  
+Aku bakal tunggu. Aku bakal terus berjuang.  
+Sampai satu hari nanti aku bisa duduk di samping kamu, genggam tanganmu, dan bilang:
+
+**"Akhirnya aku pulang... ke kamu."**
+
+– Thelar
 `;
 
-    let i = 0;
-    let speed = 70;
+let i = 0;
+let speed = 70;
 
-    function mulaiCurhat() {
-      document.getElementById("puisi").innerHTML = "";
-      i = 0;
-      ketikHuruf();
-      document.getElementById("musik").play().catch(() => {});
-    }
+function mulai() {
+  const scene = document.getElementById("scene");
+  const konten = document.getElementById("konten");
+  const musik = document.getElementById("musik");
 
-    function ketikHuruf() {
-      if (i < teks.length) {
-        const puisiDiv = document.getElementById("puisi");
-        puisiDiv.innerHTML += teks.charAt(i);
-        i++;
+  scene.classList.add("open");
 
-        // Scroll otomatis
-        const container = document.getElementById("container");
-        container.scrollTop = container.scrollHeight;
+  setTimeout(() => {
+    document.querySelector(".start-btn").style.display = "none";
+    konten.style.display = "flex";
+    musik.play().catch(() => {});
+    ketikHuruf();
+  }, 1500);
+}
 
-        setTimeout(ketikHuruf, teks.charAt(i) === '\n' ? 350 : speed);
-      }
-    }
-  </script>
+function ketikHuruf() {
+  const teksEl = document.getElementById("teks");
+  if (i < teks.length) {
+    teksEl.innerHTML += teks.charAt(i);
+    i++;
+    const konten = document.getElementById("konten");
+    konten.scrollTop = konten.scrollHeight;
+    setTimeout(ketikHuruf, teks.charAt(i) === '\n' ? 350 : speed);
+  }
+}
+</script>
 
 </body>
 </html>
